@@ -27,6 +27,12 @@ const Signup = async () => {
   // redirect to homepage if user is authenticated
   if (authenticated) {
     router.push('/');
+   await registerUser(user.value);
+    if (authenticated) {
+      router.push('/');
+    } else {
+      alert('Registration failed');
+    }
   }
 };
 </script>
