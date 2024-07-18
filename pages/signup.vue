@@ -30,35 +30,34 @@
 </template>
 
 
-<<script lang="ts" setup>
+<script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';
 
-const { authenticateUser, registerUser } = useAuthStore(); // use auth store
-const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
-
-const user = ref({
-  email: '',
-  password: ''
-});
+const { registerUser } = useAuthStore(); // use auth store
 const router = useRouter();
 
+const user = ref({
+  username: '',
+  password: ''
+});
+
 const Signup = async () => {
-  await authenticateUser(user.value);
-  // redirect to homepage if user is authenticated
-  if (authenticated) {
-    router.push('/');
-   await registerUser(user.value);
-    if (authenticated) {
+  try {
+    const registered = await registerUser(user.value);
+    if (registered) {
       router.push('/');
     } else {
-      alert('Registration failed');
+      alert('Registration failed. Please try again.');
     }
+  } catch (error) {
+    console.error('Error during registration:', error);
+    alert('Registration failed due to an error. Please try again later.');
   }
 };
 </script>
+
 
 <style lang="scss">
 .title {
