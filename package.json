@@ -1,6 +1,6 @@
 {
   "name": "nuxt-app",
-  "private": true,
+  "private": false,
   "type": "module",
   "scripts": {
     "build": "nuxt build",
@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "nuxt": "^3.12.3",
-    "vue": "latest"
+    "vue": "latest",
+    "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@pinia/nuxt": "^0.5.1",

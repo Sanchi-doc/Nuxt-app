@@ -1,48 +1,28 @@
 <template>
   <div>
     <div class="title">
-      <h2>Login</h2>
-    </div>
-    <div class="container form">
-      <label for="uname"><b>Username</b></label>
-      <input
-        v-model="user.username"
-        type="text"
-        class="input"
-        placeholder="Enter Username"
-        name="uname"
-        required
-      />
-
-      <label for="psw"><b>Password</b></label>
-      <input
-        v-model="user.password"
-        type="password"
-        class="input"
-        placeholder="Enter Password"
-        name="psw"
-        required
-      />
-
-      <button @click.prevent="login" class="button">login</button>
+      <h2>Signup</h2>
+      <button @click.prevent="Signup" class="button">Submit</button>
     </div>
   </div>
 </template>
-<script lang="ts" setup>
+
+<<script lang="ts" setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';
 
-const { authenticateUser } = useAuthStore(); // use auth store
-
+const { authenticateUser, registerUser } = useAuthStore(); // use auth store
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
 const user = ref({
-  username: '',
-  password: '',
+  email: '',
+  password: ''
 });
 const router = useRouter();
 
-const login = async () => {
+const Signup = async () => {
   await authenticateUser(user.value);
   // redirect to homepage if user is authenticated
   if (authenticated) {
@@ -50,6 +30,7 @@ const login = async () => {
   }
 };
 </script>
+
 <style lang="scss">
 .title {
   display: flex;
@@ -74,7 +55,7 @@ const login = async () => {
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
-    border: black;
+    border: none;
     cursor: pointer;
   }
 

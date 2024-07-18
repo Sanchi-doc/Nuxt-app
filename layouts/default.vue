@@ -5,10 +5,13 @@
         <li><nuxt-link to="/">Home</nuxt-link></li>
         <li><nuxt-link to="/about">About</nuxt-link></li>
         <li v-if="!authenticated" class="loginBtn" style="float: right">
+          <nuxt-link to="/Signup">Signup</nuxt-link>
+        </li>
+        <li v-if="!authenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/login">Login</nuxt-link>
         </li>
-        <li v-if="authenticated" class="loginBtn" style="float: right">
-          <nuxt-link @click="logout">Logout</nuxt-link>
+        <li v-else class="loginBtn" style="float: right">
+          <a @click="logout">Logout</a>
         </li>
       </ul>
     </header>
@@ -16,18 +19,20 @@
       <slot />
     </div>
     <footer v-if="authenticated">
-      <h1>Footer</h1>
+      <h1>welcome</h1>
     </footer>
   </div>
 </template>
+
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/store/auth';
 
 const router = useRouter();
 
 const { logUserOut } = useAuthStore();
-const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
+const { authenticated } = storeToRefs(useAuthStore());
 
 const logout = () => {
   logUserOut();
@@ -41,6 +46,7 @@ body {
   padding: 0;
   margin: 0;
 }
+
 header {
   position: fixed;
   top: 0;
@@ -68,6 +74,7 @@ header {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    border: 1px solid #111;
     cursor: pointer;
   }
 
