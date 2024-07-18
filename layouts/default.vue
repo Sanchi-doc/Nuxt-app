@@ -74,7 +74,6 @@ header {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    border: 1px solid #111;
     cursor: pointer;
   }
 
