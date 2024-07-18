@@ -2,10 +2,33 @@
   <div>
     <div class="title">
       <h2>Signup</h2>
+    </div>
+    <div class="container form">
+      <label for="uname"><b>Username</b></label>
+      <input
+        v-model="user.username"
+        type="text"
+        class="input"
+        placeholder="Enter Username"
+        name="uname"
+        required
+      />
+
+      <label for="psw"><b>Password</b></label>
+      <input
+        v-model="user.password"
+        type="password"
+        class="input"
+        placeholder="Enter Password"
+        name="psw"
+        required
+      />
+
       <button @click.prevent="Signup" class="button">Submit</button>
     </div>
   </div>
 </template>
+
 
 <<script lang="ts" setup>
 import { ref } from 'vue';
