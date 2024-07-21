@@ -2,16 +2,26 @@
 export default defineNuxtConfig({
   ssr: false,
 
-  modules: [
-    // ...
-    [
-      '@pinia/nuxt',
-      {
-        autoImports: [
-          // automatically imports `defineStore`
-          'defineStore',
-        ],
-      },
-    ],
-  ],
+  vite: {
+    vue: {
+      template: {
+        compilerOptions: {
+          whitespace: 'preserve'
+        }
+      }
+    }
+  },
+
+  modules: [// ...
+  [
+    '@pinia/nuxt',
+    {
+      autoImports: [
+        // automatically imports `defineStore`
+        'defineStore',
+      ],
+    },
+  ], "@nuxt/ui"],
+
+  compatibilityDate: '2024-07-18',
 });

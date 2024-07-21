@@ -1,27 +1,21 @@
-<template>
-  <div>
-    <header>
-      <ul>
-        <li><nuxt-link to="/">Home</nuxt-link></li>
-        <li><nuxt-link to="/about">About</nuxt-link></li>
-        <li v-if="!authenticated" class="loginBtn" style="float: right">
-          <nuxt-link to="/Signup">Signup</nuxt-link>
-        </li>
-        <li v-if="!authenticated" class="loginBtn" style="float: right">
-          <nuxt-link to="/login">Login</nuxt-link>
-        </li>
-        <li v-else class="loginBtn" style="float: right">
-          <a @click="logout">Logout</a>
-        </li>
-      </ul>
-    </header>
-    <div class="mainContent">
+<template lang="pug">
+  .div
+    .header
+      .ui-menu
+        U-button(color="primary" variant="solid" size="sm" @click="router.push('/')") Home
+        U-button(color="primary" variant="solid" size="sm" @click="router.push('/about')") About
+
+      .aythorization
+        U-button(color="primary" variant="solid" size="sm" v-if="!authenticated" @click="router.push('/login')") Login
+        U-button(color="primary" variant="solid" size="sm" v-if="!authenticated" @click="router.push('/signup')") Signup
+        u-button(color="primary" variant="solid" size="sm" v-else @click="logout") Logout
+
+    .mainContent
       <slot />
-    </div>
-    <footer v-if="authenticated">
-      <h1>welcome</h1>
-    </footer>
-  </div>
+
+    .footer(v-if="authenticated")
+      h1 Welcome
+
 </template>
 
 <script lang="ts" setup>
@@ -41,49 +35,15 @@ const logout = () => {
 </script>
 
 <style lang="scss">
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 0;
-  margin: 0;
-}
 
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
 
-  li {
-    float: left;
-    border-right: 1px solid #bbb;
-  }
-
-  li:last-child {
-    border-right: none;
-  }
-
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    border: 1px solid #111;
-    cursor: pointer;
-  }
-
-  li a:hover:not(.loginBtn) {
-    background-color: #111;
-  }
-
-  .loginBtn {
-    background-color: #04aa6d;
+  button {
+    margin: 0 4px;
   }
 }
 
