@@ -4,12 +4,12 @@
       <h2>Login</h2>
     </div>
     <div class="container form">
-      <label for="uname"><b>Username</b></label>
+      <label for="uname"><b>Email</b></label>
       <input
-        v-model="user.username"
+        v-model="user.email"
         type="text"
         class="input"
-        placeholder="Enter Username"
+        placeholder="Enter Email"
         name="uname"
         required
       />
@@ -37,7 +37,7 @@ const { authenticateUser } = useAuthStore(); // use auth store
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
 const user = ref({
-  username: '',
+  email: '',
   password: '',
 });
 const router = useRouter();

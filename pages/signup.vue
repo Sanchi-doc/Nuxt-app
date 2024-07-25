@@ -14,6 +14,26 @@
         required
       />
 
+      <label for="email"><b>Email</b></label>
+      <input
+        v-model="user.email"
+        type="email"
+        class="input"
+        placeholder="Enter Email"
+        name="email"
+        required
+      />
+
+      <label for="uphone"><b>Phone</b></label>
+      <input
+          v-model="user.phone"
+          type="text"
+          class="input"
+          placeholder="Enter Phone"
+          name="uname"
+          required
+      />
+
       <label for="psw"><b>Password</b></label>
       <input
         v-model="user.password"
@@ -34,20 +54,27 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/store/auth';
+import {storeToRefs} from "pinia";
 
 const { registerUser } = useAuthStore(); // use auth store
+
+const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
+
 const router = useRouter();
 
 const user = ref({
   username: '',
+  email: '',
+  phone: '',
   password: ''
 });
 
 const Signup = async () => {
   try {
-    const registered = await registerUser(user.value);
-    if (registered) {
-      router.push('/');
+    console.log('registering user', user.value);
+    await registerUser(<UserPayloadInterface>user.value);
+    if (authenticated.value) {
+      await router.push('/');
     } else {
       alert('Registration failed. Please try again.');
     }
