@@ -1,11 +1,5 @@
 import { defineStore } from 'pinia';
 
-interface UserPayloadInterface {
-  username: string;
-  password: string;
-  email: string;
-  phone: string;
-}
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
