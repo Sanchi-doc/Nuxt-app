@@ -18,26 +18,39 @@
     <div class="mainContent">
       <slot />
     </div>
+    <section v-if="authenticated" class="userInfo">
+      <h2>UserInfo</h2>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Phone:</strong> {{ user.phone }}</p>
+    </section>
     <footer v-if="authenticated">
-      <h1>welcome</h1>
+      <h1>Welcome</h1>
     </footer>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/store/auth';
 
 const router = useRouter();
+const authStore = useAuthStore();
 
-const { logUserOut } = useAuthStore();
-const { authenticated } = storeToRefs(useAuthStore());
+const { logUserOut, loadUserFromLocalStorage } = authStore;
+const { authenticated, user } = storeToRefs(authStore);
 
 const logout = () => {
   logUserOut();
   router.push('/login');
 };
+
+// Load user info from local storage when component is mounted
+onMounted(() => {
+  authStore.loadUserFromLocalStorage();
+});
 </script>
 
 <style lang="scss">
@@ -90,5 +103,17 @@ header {
 .mainContent {
   padding: 16px;
   margin: 3rem auto;
+}
+
+.userInfo {
+  margin: 3rem auto;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  h2 {
+    margin-top: 0;
+  }
 }
 </style>

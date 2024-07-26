@@ -29,7 +29,7 @@
           v-model="user.phone"
           type="text"
           class="input"
-          placeholder="Enter Username"
+          placeholder="Enter Phone"
           name="uname"
           required
       />

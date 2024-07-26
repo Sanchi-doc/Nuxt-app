@@ -10,7 +10,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "20": "^3.1.9",
     "drizzle-orm": "^0.29.5",
+    "node": "^22.5.0",
     "nuxt": "^3.12.3",
     "postgres": "^3.4.4",
     "vue": "latest",
