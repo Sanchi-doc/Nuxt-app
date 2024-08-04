@@ -23,6 +23,9 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 import { consola } from 'file:///home/superalex/Nuxt3-app/node_modules/consola/dist/index.mjs';
 import { getContext } from 'file:///home/superalex/Nuxt3-app/node_modules/unctx/dist/index.mjs';
 import { isVNode, version, unref } from 'file:///home/superalex/Nuxt3-app/node_modules/vue/index.mjs';
+import { basename } from 'file:///home/superalex/Nuxt3-app/node_modules/pathe/dist/index.mjs';
+import { getIcons } from 'file:///home/superalex/Nuxt3-app/node_modules/@iconify/utils/lib/index.mjs';
+import { collections } from 'file:///home/superalex/Nuxt3-app/.nuxt/nuxt-icon-server-bundle.mjs';
 import { createServerHead as createServerHead$1, CapoPlugin } from 'file:///home/superalex/Nuxt3-app/node_modules/unhead/dist/index.mjs';
 import { defineHeadPlugin } from 'file:///home/superalex/Nuxt3-app/node_modules/@unhead/shared/dist/index.mjs';
 
@@ -67,7 +70,224 @@ function _expandFromEnv(value) {
 }
 
 const inlineAppConfig = {
-  "nuxt": {}
+  "nuxt": {},
+  "icon": {
+    "provider": "iconify",
+    "class": "",
+    "aliases": {},
+    "iconifyApiEndpoint": "https://api.iconify.design",
+    "localApiEndpoint": "/api/_nuxt_icon",
+    "fallbackToApi": true,
+    "cssSelectorPrefix": "i-",
+    "cssWherePseudo": true,
+    "mode": "css",
+    "attrs": {
+      "aria-hidden": true
+    },
+    "collections": [
+      "academicons",
+      "akar-icons",
+      "ant-design",
+      "arcticons",
+      "basil",
+      "bi",
+      "bitcoin-icons",
+      "bpmn",
+      "brandico",
+      "bx",
+      "bxl",
+      "bxs",
+      "bytesize",
+      "carbon",
+      "catppuccin",
+      "cbi",
+      "charm",
+      "ci",
+      "cib",
+      "cif",
+      "cil",
+      "circle-flags",
+      "circum",
+      "clarity",
+      "codicon",
+      "covid",
+      "cryptocurrency",
+      "cryptocurrency-color",
+      "dashicons",
+      "devicon",
+      "devicon-plain",
+      "ei",
+      "el",
+      "emojione",
+      "emojione-monotone",
+      "emojione-v1",
+      "entypo",
+      "entypo-social",
+      "eos-icons",
+      "ep",
+      "et",
+      "eva",
+      "f7",
+      "fa",
+      "fa-brands",
+      "fa-regular",
+      "fa-solid",
+      "fa6-brands",
+      "fa6-regular",
+      "fa6-solid",
+      "fad",
+      "fe",
+      "feather",
+      "file-icons",
+      "flag",
+      "flagpack",
+      "flat-color-icons",
+      "flat-ui",
+      "flowbite",
+      "fluent",
+      "fluent-emoji",
+      "fluent-emoji-flat",
+      "fluent-emoji-high-contrast",
+      "fluent-mdl2",
+      "fontelico",
+      "fontisto",
+      "formkit",
+      "foundation",
+      "fxemoji",
+      "gala",
+      "game-icons",
+      "geo",
+      "gg",
+      "gis",
+      "gravity-ui",
+      "gridicons",
+      "grommet-icons",
+      "guidance",
+      "healthicons",
+      "heroicons",
+      "heroicons-outline",
+      "heroicons-solid",
+      "hugeicons",
+      "humbleicons",
+      "ic",
+      "icomoon-free",
+      "icon-park",
+      "icon-park-outline",
+      "icon-park-solid",
+      "icon-park-twotone",
+      "iconamoon",
+      "iconoir",
+      "icons8",
+      "il",
+      "ion",
+      "iwwa",
+      "jam",
+      "la",
+      "lets-icons",
+      "line-md",
+      "logos",
+      "ls",
+      "lucide",
+      "mage",
+      "majesticons",
+      "maki",
+      "map",
+      "marketeq",
+      "material-symbols",
+      "material-symbols-light",
+      "mdi",
+      "mdi-light",
+      "medical-icon",
+      "memory",
+      "meteocons",
+      "mi",
+      "mingcute",
+      "mono-icons",
+      "mynaui",
+      "nimbus",
+      "nonicons",
+      "noto",
+      "noto-v1",
+      "octicon",
+      "oi",
+      "ooui",
+      "openmoji",
+      "oui",
+      "pajamas",
+      "pepicons",
+      "pepicons-pencil",
+      "pepicons-pop",
+      "pepicons-print",
+      "ph",
+      "pixelarticons",
+      "prime",
+      "ps",
+      "quill",
+      "radix-icons",
+      "raphael",
+      "ri",
+      "rivet-icons",
+      "si-glyph",
+      "simple-icons",
+      "simple-line-icons",
+      "skill-icons",
+      "solar",
+      "streamline",
+      "streamline-emojis",
+      "subway",
+      "svg-spinners",
+      "system-uicons",
+      "tabler",
+      "tdesign",
+      "teenyicons",
+      "token",
+      "token-branded",
+      "topcoat",
+      "twemoji",
+      "typcn",
+      "uil",
+      "uim",
+      "uis",
+      "uit",
+      "uiw",
+      "unjs",
+      "vaadin",
+      "vs",
+      "vscode-icons",
+      "websymbol",
+      "weui",
+      "whh",
+      "wi",
+      "wpf",
+      "zmdi",
+      "zondicons"
+    ]
+  },
+  "ui": {
+    "primary": "green",
+    "gray": "cool",
+    "colors": [
+      "red",
+      "orange",
+      "amber",
+      "yellow",
+      "lime",
+      "green",
+      "emerald",
+      "teal",
+      "cyan",
+      "sky",
+      "blue",
+      "indigo",
+      "violet",
+      "purple",
+      "fuchsia",
+      "pink",
+      "rose",
+      "primary"
+    ],
+    "strategy": "merge"
+  }
 };
 
 
@@ -99,7 +319,10 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {}
+  "public": {},
+  "icon": {
+    "serverKnownCssClasses": []
+  }
 };
 const envOptions = {
   prefix: "NITRO_",
@@ -121,7 +344,12 @@ function useRuntimeConfig(event) {
   event.context.nitro.runtimeConfig = runtimeConfig;
   return runtimeConfig;
 }
-_deepFreeze(klona(appConfig));
+const _sharedAppConfig = _deepFreeze(klona(appConfig));
+function useAppConfig(event) {
+  {
+    return _sharedAppConfig;
+  }
+}
 function _deepFreeze(object) {
   const propNames = Object.getOwnPropertyNames(object);
   for (const name of propNames) {
@@ -600,7 +828,7 @@ function getRouteRulesForPath(path) {
   return defu({}, ..._routeRulesMatcher.matchAll(path).reverse());
 }
 
-const script = `
+const script$1 = `
 if (!window.__NUXT_DEVTOOLS_TIME_METRIC__) {
   Object.defineProperty(window, '__NUXT_DEVTOOLS_TIME_METRIC__', {
     value: {},
@@ -613,7 +841,7 @@ window.__NUXT_DEVTOOLS_TIME_METRIC__.appInit = Date.now()
 
 const _NCmuofyKc5 = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
-    htmlContext.head.push(`<script>${script}<\/script>`);
+    htmlContext.head.push(`<script>${script$1}<\/script>`);
   });
 });
 
@@ -690,9 +918,18 @@ function onConsoleLog(callback) {
   consola.wrapConsole();
 }
 
+const script = "\"use strict\";(()=>{const a=window,e=document.documentElement,c=window.localStorage,d=[\"dark\",\"light\"],n=c&&c.getItem&&c.getItem(\"nuxt-color-mode\")||\"system\";let l=n===\"system\"?f():n;const i=e.getAttribute(\"data-color-mode-forced\");i&&(l=i),r(l),a[\"__NUXT_COLOR_MODE__\"]={preference:n,value:l,getColorScheme:f,addColorScheme:r,removeColorScheme:u};function r(o){const t=\"\"+o+\"\",s=\"\";e.classList?e.classList.add(t):e.className+=\" \"+t,s&&e.setAttribute(\"data-\"+s,o)}function u(o){const t=\"\"+o+\"\",s=\"\";e.classList?e.classList.remove(t):e.className=e.className.replace(new RegExp(t,\"g\"),\"\"),s&&e.removeAttribute(\"data-\"+s)}function m(o){return a.matchMedia(\"(prefers-color-scheme\"+o+\")\")}function f(){if(a.matchMedia&&m(\"\").media!==\"not all\"){for(const o of d)if(m(\":\"+o).matches)return o}return\"light\"}})();";
+
+const _3tzSY764Qy = (function(nitro) {
+  nitro.hooks.hook("render:html", (htmlContext) => {
+    htmlContext.head.push(`<script>${script}<\/script>`);
+  });
+});
+
 const plugins = [
   _NCmuofyKc5,
-_JZQj3tWI0T
+_JZQj3tWI0T,
+_3tzSY764Qy
 ];
 
 const scheduledTasks = false;
@@ -823,10 +1060,51 @@ const errorHandler = (async function errorhandler(error, event) {
   return send(event, html);
 });
 
+const warnOnceSet = /* @__PURE__ */ new Set();
+const DEFAULT_ENDPOINT = "https://api.iconify.design";
+const _FHnHzm = defineCachedEventHandler(async (ctx) => {
+  const url = ctx.node.req.url;
+  if (!url)
+    return;
+  const options = useAppConfig().icon;
+  const collectionName = ctx.context.params?.collection?.replace(/\.json$/, "");
+  const collection = collectionName ? await collections[collectionName]?.() : null;
+  const apiEndPoint = options.iconifyApiEndpoint || DEFAULT_ENDPOINT;
+  const apiUrl = new URL("./" + basename(url), apiEndPoint);
+  const icons = apiUrl.searchParams.get("icons")?.split(",");
+  if (collection) {
+    if (icons?.length) {
+      const data = getIcons(
+        collection,
+        icons
+      );
+      consola.debug(`[Icon] serving ${(icons || []).map((i) => "`" + collectionName + ":" + i + "`").join(",")} from bundled collection`);
+      return data;
+    }
+  } else {
+    if (collectionName && !warnOnceSet.has(collectionName) && apiEndPoint === DEFAULT_ENDPOINT) {
+      consola.warn([
+        `[Icon] Collection \`${collectionName}\` is not found locally`,
+        `We suggest to install it via \`npm i -D @iconify-json/${collectionName}\` to provide the best end-user experience.`
+      ].join("\n"));
+      warnOnceSet.add(collectionName);
+    }
+  }
+  if (options.fallbackToApi) {
+    consola.debug(`[Icon] fetching ${(icons || []).map((i) => "`" + collectionName + ":" + i + "`").join(",")} from iconify api`);
+    if (apiUrl.host !== new URL(apiEndPoint).host) {
+      return createError({ status: 400, message: "Invalid icon request" });
+    }
+    const data = await $fetch(apiUrl.href);
+    return data;
+  }
+});
+
 const _lazy_P7fHBW = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
   { route: '/__nuxt_error', handler: _lazy_P7fHBW, lazy: true, middleware: false, method: undefined },
+  { route: '/api/_nuxt_icon/:collection', handler: _FHnHzm, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_P7fHBW, lazy: true, middleware: false, method: undefined }
 ];
 

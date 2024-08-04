@@ -19,6 +19,12 @@ type NuxtAppInjections =
   InjectionType<typeof import("../../node_modules/nuxt/dist/pages/runtime/plugins/check-if-page-unused").default> &
   InjectionType<typeof import("../../node_modules/@nuxt/devtools/dist/runtime/plugins/devtools.server").default> &
   InjectionType<typeof import("../../node_modules/@nuxt/devtools/dist/runtime/plugins/devtools.client").default> &
+  InjectionType<typeof import("../../node_modules/@nuxt/ui/dist/runtime/plugins/slideovers").default> &
+  InjectionType<typeof import("../../node_modules/@nuxt/ui/dist/runtime/plugins/modals").default> &
+  InjectionType<typeof import("../../node_modules/@nuxt/ui/dist/runtime/plugins/colors").default> &
+  InjectionType<typeof import("../../node_modules/@nuxtjs/color-mode/dist/runtime/plugin.server").default> &
+  InjectionType<typeof import("../../node_modules/@nuxtjs/color-mode/dist/runtime/plugin.client").default> &
+  InjectionType<typeof import("../../node_modules/@nuxt/icon/dist/runtime/plugin").default> &
   InjectionType<typeof import("../../node_modules/nuxt/dist/app/plugins/dev-server-logs").default> &
   InjectionType<typeof import("../../node_modules/nuxt/dist/app/plugins/check-if-layout-used").default>
 
@@ -26,7 +32,7 @@ declare module '#app' {
   interface NuxtApp extends NuxtAppInjections { }
 
   interface NuxtAppLiterals {
-    pluginName: 'nuxt:revive-payload:client' | 'nuxt:head' | 'nuxt:router' | 'nuxt:revive-payload:server' | 'nuxt:chunk-reload' | 'nuxt:global-components' | 'nuxt:prefetch' | 'nuxt:checkIfPageUnused' | 'nuxt:checkIfLayoutUsed'
+    pluginName: 'nuxt:revive-payload:client' | 'nuxt:head' | 'nuxt:router' | 'nuxt:revive-payload:server' | 'nuxt:chunk-reload' | 'nuxt:global-components' | 'nuxt:prefetch' | 'nuxt:checkIfPageUnused' | '@nuxt/icon' | 'nuxt:checkIfLayoutUsed'
   }
 }
 

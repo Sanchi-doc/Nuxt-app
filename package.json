@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "20": "^3.1.9",
+    "@nuxt/ui": "^2.18.3",
     "@nuxtjs/axios": "^5.13.6",
     "drizzle-orm": "^0.29.5",
     "node": "^22.5.0",

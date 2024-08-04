@@ -1,35 +1,54 @@
 <template>
-  <form @submit.prevent="login">
-    <input v-model="email" type="email" required>
-    <input v-model="password" type="password" required>
-    <button type="submit">Sign In</button>
-  </form>
-</template>
+  <div>
+    <div class="title">
+      <h2>Login</h2>
+    </div>
+    <div class="container form">
+      <label for="uname"><b>Username</b></label>
+      <input
+        v-model="user.email"
+        type="text"
+        class="input"
+        placeholder="Enter Username"
+        name="uname"
+        required
+      />
 
-<script>
-export default {
-  data() {
-    return {
-      email: '',
-      password: ''
-    }
-  },
-  methods: {
-    async login() {
-      try {
-        await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password
-          }
-        })
-        this.$router.push('/dashboard')
-      } catch (error) {
-        console.error('Login failed', error)
-      }
-    }
+      <label for="psw"><b>Password</b></label>
+      <input
+        v-model="user.password"
+        type="password"
+        class="input"
+        placeholder="Enter Password"
+        name="psw"
+        required
+      />
+
+      <button @click.prevent="login" class="button">login</button>
+    </div>
+  </div>
+</template>
+<script lang="ts" setup>
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from '~/store/auth';
+
+const { authenticateUser } = useAuthStore(); // use auth store
+
+const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
+
+const user = ref({
+  email: '',
+  password: '',
+});
+const router = useRouter();
+
+const login = async () => {
+  await authenticateUser(user.value);
+  // redirect to homepage if user is authenticated
+  if (authenticated.value) {
+    router.push('/');
   }
-}
+};
 </script>
 <style lang="scss">
 .title {
