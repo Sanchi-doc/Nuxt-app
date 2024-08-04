@@ -44,7 +44,7 @@
         required
       />
 
-      <button @click.prevent="Signup" class="button">Submit</button>
+      <button @click.prevent="register(user)" class="button">Submit</button>
     </div>
   </div>
 </template>
@@ -52,15 +52,6 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '~/store/auth';
-import {storeToRefs} from "pinia";
-
-const { registerUser } = useAuthStore(); // use auth store
-
-const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
-
-const router = useRouter();
 
 const user = ref({
   username: '',
@@ -69,20 +60,18 @@ const user = ref({
   password: ''
 });
 
-const Signup = async () => {
+const { signUp } = useAuth()
+
+function register(user: any) {
   try {
-    console.log('registering user', user.value);
-    await registerUser(<UserPayloadInterface>user.value);
-    if (authenticated.value) {
-      await router.push('/');
-    } else {
-      alert('Registration failed. Please try again.');
-    }
+    console.log('registering user', user.email, user.password);
+    const credentials = {email: user?.email, password: user?.password}
+    signUp(credentials)
   } catch (error) {
     console.error('Error during registration:', error);
     alert('Registration failed due to an error. Please try again later.');
   }
-};
+}
 </script>
 
 

@@ -24,15 +24,13 @@
         required
       />
 
-      <button @click.prevent="login" class="button">login</button>
+      <button @click.prevent="signIn(user)" class="button">login</button>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';
-
-const { authenticateUser } = useAuthStore(); // use auth store
 
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
 
@@ -42,8 +40,10 @@ const user = ref({
 });
 const router = useRouter();
 
+const { signIn } = useAuth()
+
 const login = async () => {
-  await authenticateUser(user.value);
+  await signIn(user.value)
   // redirect to homepage if user is authenticated
   if (authenticated.value) {
     router.push('/');
