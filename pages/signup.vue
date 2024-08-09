@@ -56,7 +56,6 @@ import axios from 'axios';
 import { useAuthStore } from '~/store/auth';
 
 const authStore = useAuthStore();
-const { authenticated } = authStore;
 const router = useRouter();
 
 interface UserPayloadInterface {
@@ -76,20 +75,28 @@ const user = ref<UserPayloadInterface>({
 const signup = async () => {
   try {
     const response = await axios.post('/api/register', user.value);
-    const token = response.data.token; // get the token from the response
+    console.log('Response data:', response.data); // Log response data
+    const token = response.data.token;
 
     if (token) {
-      localStorage.setItem('token', token); // Save token in localStorage
-      authStore.user = user.value; // Installing a user in the store
-      authStore.authenticated = true; // Mark the user as authenticated
+      localStorage.setItem('token', token);
+      authStore.user = user.value;
+      authStore.authenticated = true;
 
-      await router.push('/'); //Redirect to the main page
+      await router.push('/'); // Redirect to the main page
     } else {
       alert('Registration failed. Please try again.');
     }
-  } catch (error) {
-    console.error('Error during registration:', error);
-    alert('Registration failed due to an error. Please try again later.');
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      // Handle Axios specific errors
+      console.error('Error during registration:', error.response?.data || error.message);
+      alert('Registration failed due to an error. Please try again later.');
+    } else {
+      // Handle unexpected errors
+      console.error('Unexpected error during registration:', error);
+      alert('An unexpected error occurred. Please try again later.');
+    }
   }
 };
 </script>
