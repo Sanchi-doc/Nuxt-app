@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent="signup">
-    <input v-model="username" type="text" placeholder="Username" required>
-    <input v-model="email" type="email" placeholder="Email" required>
-    <input v-model="password" type="password" placeholder="Password" required>
+    <input v-model="user.username" type="text" placeholder="Username" required>
+    <input v-model="user.email" type="email" placeholder="Email" required>
+    <input v-model="user.password" type="password" placeholder="Password" required>
     <button type="submit">Sign Up</button>
   </form>
 </template>
