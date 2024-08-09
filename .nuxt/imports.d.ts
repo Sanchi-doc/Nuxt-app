@@ -41,6 +41,9 @@ export { useToast } from '../node_modules/@nuxt/ui/dist/runtime/composables/useT
 export { useUI } from '../node_modules/@nuxt/ui/dist/runtime/composables/useUI';
 export { defineStore, acceptHMRUpdate, usePinia, storeToRefs } from '../node_modules/@pinia/nuxt/dist/runtime/composables';
 export { useColorMode } from '../node_modules/@nuxtjs/color-mode/dist/runtime/composables';
+export { useAuth } from '../node_modules/@sidebase/nuxt-auth/dist/runtime/composables/local/useAuth';
+export { useAuthState } from '../node_modules/@sidebase/nuxt-auth/dist/runtime/composables/local/useAuthState';
+export { _refreshHandler } from './refreshHandler';
 export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';
 export { definePageMeta } from '../node_modules/nuxt/dist/pages/runtime/composables';
 export { useLink } from 'vue-router';

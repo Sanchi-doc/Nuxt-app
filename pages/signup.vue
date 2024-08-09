@@ -26,12 +26,12 @@
 
       <label for="uphone"><b>Phone</b></label>
       <input
-          v-model="user.phone"
-          type="text"
-          class="input"
-          placeholder="Enter Username"
-          name="uname"
-          required
+        v-model="user.phone"
+        type="text"
+        class="input"
+        placeholder="Enter Phone"
+        name="uphone"
+        required
       />
 
       <label for="psw"><b>Password</b></label>
@@ -44,37 +44,46 @@
         required
       />
 
-      <button @click.prevent="Signup" class="button">Submit</button>
+      <button @click.prevent="signup" class="button">Submit</button>
     </div>
   </div>
 </template>
 
-
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 import { useAuthStore } from '~/store/auth';
-import {storeToRefs} from "pinia";
 
-const { registerUser } = useAuthStore(); // use auth store
-
-const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
-
+const authStore = useAuthStore();
+const { authenticated } = authStore;
 const router = useRouter();
 
-const user = ref({
+interface UserPayloadInterface {
+  username: string;
+  email: string;
+  phone: string;
+  password: string;
+}
+
+const user = ref<UserPayloadInterface>({
   username: '',
   email: '',
   phone: '',
-  password: ''
+  password: '',
 });
 
-const Signup = async () => {
+const signup = async () => {
   try {
-    console.log('registering user', user.value);
-    await registerUser(<UserPayloadInterface>user.value);
-    if (authenticated.value) {
-      await router.push('/');
+    const response = await axios.post('/api/register', user.value);
+    const token = response.data.token; // get the token from the response
+
+    if (token) {
+      localStorage.setItem('token', token); // Save token in localStorage
+      authStore.user = user.value; // Installing a user in the store
+      authStore.authenticated = true; // Mark the user as authenticated
+
+      await router.push('/'); //Redirect to the main page
     } else {
       alert('Registration failed. Please try again.');
     }
@@ -84,7 +93,6 @@ const Signup = async () => {
   }
 };
 </script>
-
 
 <style lang="scss">
 .title {
@@ -116,27 +124,6 @@ const Signup = async () => {
 
   .button:hover {
     opacity: 0.8;
-  }
-  .cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-  }
-
-  span.psw {
-    float: right;
-    padding-top: 16px;
-  }
-
-  /* Change styles for span and cancel button on extra small screens */
-  @media screen and (max-width: 300px) {
-    span.psw {
-      display: block;
-      float: none;
-    }
-    .cancelbtn {
-      width: 100%;
-    }
   }
 }
 </style>

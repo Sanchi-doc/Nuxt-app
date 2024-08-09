@@ -1,1 +1,39 @@
-node_modules
+.DS_Store
+node_modules/
+npm-debug.log*
+.package-lock.json
+yarn-error.log
+.nuxt/
+dist/
+nuxt.config.ts.swp
+coverage/
+.docker/
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+yarn-debug.log*
+yarn-error.log*
+
+# IDE-specific ignore
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.ncb
+*.sdf
+*.opensdf
+*.cachefile
+*.VC.db
+.ipch/
+VSPhone/
+
+# Visual Studio 2005+
+# This file is for unifying the coding style for different editors and IDEs
+.editorconfig
+
+# End of https://www.toptal.com/developers/gitignore/api/node,nuxtjs

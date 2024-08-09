@@ -4,13 +4,13 @@
       <h2>Login</h2>
     </div>
     <div class="container form">
-      <label for="uname"><b>Username</b></label>
+      <label for="email"><b>Email</b></label>
       <input
         v-model="user.email"
         type="text"
         class="input"
-        placeholder="Enter Username"
-        name="uname"
+        placeholder="Enter Email"
+        name="email"
         required
       />
 
@@ -24,32 +24,72 @@
         required
       />
 
-      <button @click.prevent="login" class="button">login</button>
+      <button @click.prevent="login" class="button">Login</button>
     </div>
   </div>
 </template>
+
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '~/store/auth';
 
-const { authenticateUser } = useAuthStore(); // use auth store
-
-const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive
+const authStore = useAuthStore();
+const { authenticateUser } = authStore;
+const { authenticated } = storeToRefs(authStore);
 
 const user = ref({
   email: '',
   password: '',
 });
+
 const router = useRouter();
 
+// Auto-login if token exists
+onMounted(async () => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      const response = await axios.get('/api/user', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.data.user) {
+        authStore.user = response.data.user; // Set the user in the store
+        authStore.authenticated = true; // Mark as authenticated
+        router.push('/'); // Redirect to the homepage
+      }
+    } catch (error) {
+      console.error('Auto-login failed:', error);
+      localStorage.removeItem('token');
+    }
+  }
+});
+
 const login = async () => {
-  await authenticateUser(user.value);
-  // redirect to homepage if user is authenticated
-  if (authenticated.value) {
-    router.push('/');
+  try {
+    const response = await axios.get('/api/login', {
+      params: { email: user.value.email, password: user.value.password },
+    });
+    localStorage.setItem('token', response.data.token); // Save token
+    authStore.user = response.data.user; // Set the user in the store
+    authStore.authenticated = true; // Mark as authenticated
+
+    if (authenticated.value) {
+      router.push('/'); // Redirect to the homepage if authenticated
+    } else {
+      alert('Login failed. Please check your credentials and try again.');
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    alert('An error occurred during login. Please try again later.');
   }
 };
 </script>
+
 <style lang="scss">
 .title {
   display: flex;
@@ -74,13 +114,14 @@ const login = async () => {
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
-    border: black;
+    border: none;
     cursor: pointer;
   }
 
   .button:hover {
     opacity: 0.8;
   }
+
   .cancelbtn {
     width: auto;
     padding: 10px 18px;
@@ -92,7 +133,6 @@ const login = async () => {
     padding-top: 16px;
   }
 
-  /* Change styles for span and cancel button on extra small screens */
   @media screen and (max-width: 300px) {
     span.psw {
       display: block;
