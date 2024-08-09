@@ -5,7 +5,7 @@
         <li><nuxt-link to="/">Home</nuxt-link></li>
         <li><nuxt-link to="/about">About</nuxt-link></li>
         <li v-if="!authenticated" class="loginBtn" style="float: right">
-          <nuxt-link to="/Signup">Signup</nuxt-link>
+          <nuxt-link to="/signup">Signup</nuxt-link>
         </li>
         <li v-if="!authenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/login">Login</nuxt-link>
@@ -19,7 +19,7 @@
       <slot />
     </div>
     <section v-if="authenticated" class="userInfo">
-      <h2>UserInfo</h2>
+      <h2>User Info</h2>
       <p><strong>Email:</strong> {{ user.email }}</p>
       <p><strong>Username:</strong> {{ user.username }}</p>
       <p><strong>Phone:</strong> {{ user.phone }}</p>
@@ -47,7 +47,6 @@ const logout = () => {
   router.push('/login');
 };
 
-// Load user info from local storage when component is mounted
 onMounted(() => {
   authStore.loadUserFromLocalStorage();
 });
@@ -102,7 +101,7 @@ header {
 
 .mainContent {
   padding: 16px;
-  margin: 3rem auto;
+  margin-top: 60px; /* Adjust margin to account for fixed header */
 }
 
 .userInfo {
