@@ -11,19 +11,19 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "20": "^3.1.9",
-    "@nuxtjs/axios": "^5.13.6",
-    "drizzle-orm": "^0.29.5",
-    "node": "^22.5.0",
+    "@nuxt/ui": "^2.17.0",
+    "@sidebase/nuxt-auth": "^0.8.1",
+    "axios": "^1.7.3",
+    "jwt-decode": "^3.1.2",
     "nuxt": "^3.12.3",
-    "postgres": "^3.4.4",
     "vue": "latest",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@pinia/nuxt": "^0.5.1",
-    "drizzle-kit": "^0.23.0",
     "pinia": "^2.1.7",
+    "pug": "^3.0.3",
+    "pug-plain-loader": "^1.1.0",
     "sass": "^1.77.8"
   }
 }
