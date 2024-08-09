@@ -2,7 +2,7 @@ export default defineNuxtConfig({
   ssr: false,
   nitro: {
     devProxy: {
-      '/auth': 'http://localhost:3000/auth'
+      '/auth': `${process.env.API_URL}/auth` //TODO only for test local - 'http://localhost:3000/auth'
     }
   },
 
@@ -43,8 +43,8 @@ export default defineNuxtConfig({
         cookieDomain: ''
       },
       endpoints: {
-        signIn: {path: 'api/login', method: 'post'},
-        signUp: {path: 'api/register', method: 'post'},
+        signIn: {path: 'login', method: 'post'},
+        signUp: {path: 'register', method: 'post'},
         getSession: {path: 'api/session', method: 'get'},
       }
     },
