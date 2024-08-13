@@ -3,7 +3,7 @@
     <div class="title">
       <h2>Login</h2>
     </div>
-    <div class="container form">
+    <div class="container form" v-if="!isAuthenticated">
       <label for="uname"><b>Username</b></label>
       <input
           v-model="user.email"
@@ -24,11 +24,15 @@
           required
       />
 
-      <button @click.prevent="signIn(user)" class="button">login</button>
+      <button @click.prevent="login" class="button">login</button>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
+import {useAuth} from "../.nuxt/imports";
+
+const { status } = useAuth()
+const isAuthenticated = computed(() => status.value === 'authenticated')
 
 const user = ref({
   email: '',

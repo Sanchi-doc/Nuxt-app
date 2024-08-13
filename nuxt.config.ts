@@ -2,7 +2,7 @@ export default defineNuxtConfig({
   ssr: false,
   nitro: {
     devProxy: {
-      '/auth': 'http://localhost:3000/auth'
+      '/auth': `${process.env.API_URL}/auth` //TODO only for test local - 'http://localhost:3000/auth'
     }
   },
 
@@ -33,23 +33,29 @@ export default defineNuxtConfig({
     baseURL: 'auth/',
     provider: {
       type: 'local',
+      sessionDataType: {
+        id: 'string | number',
+        email: 'string',
+        username: 'string'
+      },
       token: {
         signInResponseTokenPointer: '/token',
         type: 'Bearer',
         cookieName: 'auth.token',
         headerName: 'Authorization',
-        maxAgeInSeconds: 1800,
+        maxAgeInSeconds: 3600,
         sameSiteAttribute: 'lax',
         cookieDomain: ''
       },
       endpoints: {
-        signIn: {path: 'api/login', method: 'post'},
-        signUp: {path: 'api/register', method: 'post'},
-        getSession: {path: 'api/session', method: 'get'},
+        signIn: {path: 'login', method: 'post'},
+        signUp: {path: 'register', method: 'post'},
+        signOut: {path: 'logout', method: 'post'},
+        getSession: {path: 'session', method: 'get'},
       }
     },
     sessionRefresh: {
-      enablePeriodically: true,
+      enablePeriodically: false,
       enableOnWindowFocus: true,
     }
   },

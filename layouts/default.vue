@@ -4,52 +4,47 @@
       <ul>
         <li><nuxt-link to="/">Home</nuxt-link></li>
         <li><nuxt-link to="/about">About</nuxt-link></li>
-        <li v-if="!authenticated" class="loginBtn" style="float: right">
+        <li v-if="!isAuthenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/signup">Signup</nuxt-link>
         </li>
-        <li v-if="!authenticated" class="loginBtn" style="float: right">
+        <li v-if="!isAuthenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/login">Login</nuxt-link>
         </li>
         <li v-else class="loginBtn" style="float: right">
-          <a @click="logout">Logout</a>
+          <a @click="signOut">Logout</a>
         </li>
       </ul>
     </header>
     <div class="mainContent">
       <slot />
     </div>
-    <section v-if="authenticated" class="userInfo">
+    <section v-if="isAuthenticated" class="userInfo">
       <h2>User Info</h2>
       <p><strong>Email:</strong> {{ user.email }}</p>
       <p><strong>Username:</strong> {{ user.username }}</p>
-      <p><strong>Phone:</strong> {{ user.phone }}</p>
     </section>
-    <footer v-if="authenticated">
+    <footer v-if="isAuthenticated">
       <h1>Welcome</h1>
     </footer>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '~/store/auth';
+import { useAuth } from '#imports'
 
-const router = useRouter();
-const authStore = useAuthStore();
+const { status, data, signOut } = useAuth()
 
-const { logUserOut, loadUserFromLocalStorage } = authStore;
-const { authenticated, user } = storeToRefs(authStore);
+// Check if user is authenticated
+const isAuthenticated = computed(() => status.value === 'authenticated')
 
-const logout = () => {
-  logUserOut();
-  router.push('/login');
-};
-
-onMounted(() => {
-  authStore.loadUserFromLocalStorage();
+// Get the current user
+const user = computed(() => {
+  const userData = data.value?.user;
+  console.log('User Data:', userData); 
+  return userData;
 });
+
+
 </script>
 
 <style lang="scss">
