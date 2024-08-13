@@ -23,7 +23,7 @@
       <p><strong>Email:</strong> {{ user.email }}</p>
       <p><strong>Username:</strong> {{ user.username }}</p>
     </section>
-    <footer v-if="isAuthenticated">
+    <footer v-if="isAuthenticated" class="footer">
       <h1>Welcome</h1>
     </footer>
   </div>
@@ -31,6 +31,7 @@
 
 <script lang="ts" setup>
 import { useAuth } from '#imports'
+import { computed } from 'vue'
 
 const { status, data, signOut } = useAuth()
 
@@ -39,12 +40,10 @@ const isAuthenticated = computed(() => status.value === 'authenticated')
 
 // Get the current user
 const user = computed(() => {
-  const userData = data.value?.user;
-  console.log('User Data:', userData); 
-  return userData;
-});
-
-
+  const userData = data.value?.user
+  console.log('User Data:', userData)
+  return userData
+})
 </script>
 
 <style lang="scss">
@@ -58,12 +57,15 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
+  background-color: #333;
+  z-index: 1000; /* Ensure header is on top of other content */
   ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    display: flex;
+    justify-content: flex-start;
   }
 
   li {
@@ -105,9 +107,12 @@ header {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 5px;
+  max-width: 600px; /* Center and limit width */
+  text-align: center; /* Center text inside user info */
+}
 
-  h2 {
-    margin-top: 0;
-  }
+.footer {
+  margin-top: 3rem;
+  text-align: center;
 }
 </style>

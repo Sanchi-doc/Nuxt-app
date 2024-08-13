@@ -33,14 +33,12 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import { useAuth } from '../.nuxt/imports';
+import { useAuth } from '#imports';
 import { useRouter } from 'vue-router';
 
-// Инициализация состояния авторизации и функций
 const { status, signIn } = useAuth();
 const isAuthenticated = computed(() => status.value === 'authenticated');
 
-// Состояния для пользователя и ошибок
 const user = ref({
   email: '',
   password: '',
@@ -48,15 +46,15 @@ const user = ref({
 const emailError = ref('');
 const loginError = ref('');
 
-// Инстанс роутера для редиректа
 const router = useRouter();
 
-// Функция для обработки логина
+// Убедитесь, что TELEGRAM_BOT_TOKEN определен
+const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
+
 const login = async () => {
   emailError.value = '';
   loginError.value = '';
 
-  // Проверка корректности email
   if (!isValidEmail(user.value.email)) {
     emailError.value = 'Invalid email format. Please enter a valid email address.';
     return;
@@ -64,16 +62,21 @@ const login = async () => {
 
   try {
     await signIn(user.value);
-    // Редирект на домашнюю страницу, если пользователь авторизован
     if (isAuthenticated.value) {
-      router.push('/');
+      if (telegramToken) {
+        // Создание URL с параметром user
+        const url = `/tg?user=${encodeURIComponent(telegramToken)}`;
+        router.push(url);
+      } else {
+        console.error('Telegram token is not defined.');
+        loginError.value = 'Internal error: Telegram token is missing.';
+      }
     }
   } catch (error) {
     loginError.value = 'Invalid credentials. Please check your email and password.';
   }
 };
 
-// Функция для проверки формата email
 const isValidEmail = (email: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
