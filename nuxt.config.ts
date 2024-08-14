@@ -33,26 +33,32 @@ export default defineNuxtConfig({
     baseURL: 'auth/',
     provider: {
       type: 'local',
+      sessionDataType: {
+        id: 'string | number',
+        email: 'string',
+        username: 'string'
+      },
       token: {
         signInResponseTokenPointer: '/token',
         type: 'Bearer',
         cookieName: 'auth.token',
         headerName: 'Authorization',
-        maxAgeInSeconds: 1800,
+        maxAgeInSeconds: 3600,
         sameSiteAttribute: 'lax',
         cookieDomain: ''
       },
       endpoints: {
         signIn: {path: 'login', method: 'post'},
         signUp: {path: 'register', method: 'post'},
-        getSession: {path: 'api/session', method: 'get'},
+        signOut: {path: 'logout', method: 'post'},
+        getSession: {path: 'session', method: 'get'},
       }
     },
     sessionRefresh: {
-      enablePeriodically: true,
+      enablePeriodically: false,
       enableOnWindowFocus: true,
     }
   },
 
-  compatibilityDate: '2024-08-04'
+  compatibilityDate: '2024-08-14'
 });

@@ -3,50 +3,86 @@
     <div class="title">
       <h2>Login</h2>
     </div>
-    <div class="container form">
-      <label for="uname"><b>Username</b></label>
+    <div class="container form" v-if="!isAuthenticated">
+      <label for="email"><b>Email</b></label>
       <input
-          v-model="user.email"
-          type="text"
-          class="input"
-          placeholder="Enter Username"
-          name="uname"
-          required
+        v-model="user.email"
+        type="text"
+        class="input"
+        placeholder="Enter Email"
+        name="email"
+        required
       />
+      <span v-if="emailError" class="error">{{ emailError }}</span>
 
-      <label for="psw"><b>Password</b></label>
+      <label for="password"><b>Password</b></label>
       <input
-          v-model="user.password"
-          type="password"
-          class="input"
-          placeholder="Enter Password"
-          name="psw"
-          required
+        v-model="user.password"
+        type="password"
+        class="input"
+        placeholder="Enter Password"
+        name="password"
+        required
       />
+      <span v-if="loginError" class="error">{{ loginError }}</span>
 
-      <button @click.prevent="signIn(user)" class="button">login</button>
+      <button @click.prevent="login" class="button">Login</button>
     </div>
   </div>
 </template>
-<script lang="ts" setup>
 
+<script lang="ts" setup>
+import { ref, computed, onMounted } from 'vue';
+import { useAuth } from '../.nuxt/imports';
+import { useRouter } from 'vue-router';
+
+// Инициализация состояния авторизации и функций
+const { status, signIn } = useAuth();
+const isAuthenticated = computed(() => status.value === 'authenticated');
+
+// Состояния для пользователя и ошибок
 const user = ref({
   email: '',
   password: '',
 });
+const emailError = ref('');
+const loginError = ref('');
 
+// Инстанс роутера для редиректа
 const router = useRouter();
 
-const { signIn } = useAuth()
-
+// Функция для обработки логина
 const login = async () => {
-  await signIn(user.value)
-  // redirect to homepage if user is authenticated
-  // if (authenticated.value) {
-  //   router.push('/');
-  // }
+  emailError.value = '';
+  loginError.value = '';
+
+  // Проверка корректности email
+  if (!isValidEmail(user.value.email)) {
+    emailError.value = 'Invalid email format. Please enter a valid email address.';
+    return;
+  }
+
+  try {
+    await signIn(user.value);
+    // Редирект на домашнюю страницу, если пользователь авторизован
+    if (isAuthenticated.value) {
+      router.push('/');
+    }
+  } catch (error) {
+    loginError.value = 'Invalid credentials. Please check your email and password.';
+    console.error('Login error:', error);
+  }
 };
+
+// Функция для проверки формата email
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+
 </script>
+
 <style lang="scss">
 .title {
   display: flex;
@@ -78,18 +114,14 @@ const login = async () => {
   .button:hover {
     opacity: 0.8;
   }
-  .cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
+
+  .error {
+    color: red;
+    font-size: 0.875em;
+    margin-top: -8px;
+    margin-bottom: 8px;
   }
 
-  span.psw {
-    float: right;
-    padding-top: 16px;
-  }
-
-  /* Change styles for span and cancel button on extra small screens */
   @media screen and (max-width: 300px) {
     span.psw {
       display: block;

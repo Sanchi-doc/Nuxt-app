@@ -5,7 +5,6 @@ interface UserPayloadInterface {
   username: string;
   password: string;
   email: string;
-  phone: string;
 }
 
 export const useAuthStore = defineStore('auth', {
@@ -48,7 +47,7 @@ export const useAuthStore = defineStore('auth', {
           this.user = {
             username: userPayload.username,
             email: userPayload.email,
-            phone: userPayload.phone
+            
           };
           this.authenticated = true;
           localStorage.setItem('currentUser', JSON.stringify(this.user));
