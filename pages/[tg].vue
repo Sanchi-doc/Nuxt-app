@@ -1,41 +1,59 @@
 <template>
-  <div class="container">
-    <h1>User Information</h1>
-    <p v-if="id">User ID: {{ id }}</p>
-    <p v-if="username">Username: {{ username }}</p>
-    <p v-else>No user information found in URL</p>
+  <div v-if="processing">
+    </div>
+  <div v-else-if="error">
+    <p>{{ error }}</p>
   </div>
+  <div v-else>
+    </div>
 </template>
 
 <script lang="ts" setup>
-import { useRoute } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
 
-// Extract parameters from the query string
-const route = useRoute();
-const id = route.query.id as string | undefined;
-const username = route.query.username as string | undefined;
+interface User {
+  id?: string;
+  username?: string;
+}
 
-// Log parameters for debugging
-console.log('Received ID:', id);
-console.log('Received Username:', username);
+const user = ref<User>({});
+const error = ref<string | null>(null);
+const processing = ref<boolean>(true);
+
+const router = useRouter();
+
+const registerUser = async (id: string, username: string) => {
+  try {
+    const response = await axios.post('/api/register', { id, username });
+    user.value = response.data.user;
+    
+  } catch (err) {
+    error.value = handleError(err); 
+    console.error('Registration error:', err);
+  } finally {
+    processing.value = false;
+  }
+};
+
+const handleError = (err: any) => {
+  if (axios.isAxiosError(err) && err.response) {
+    return err.response.data.message || 'An error occurred';
+  } else {
+    return 'An unexpected error occurred';
+  }
+};
+
+onMounted(async () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('tg');
+  const username = params.get('username');
+
+  if (id && username) {
+    await registerUser(id, username);
+  } else {
+    error.value = 'No user information found in URL';
+  }
+});
 </script>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f0f4f8;
-  color: #333;
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
-
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #04aa6d;
-}
-</style>
