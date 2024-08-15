@@ -1,39 +1,32 @@
 <template>
   <div>
-    <div v-if="isAuthenticated">
-      <h2>Welcome, {{ user.username }}</h2>
+    <div class="title">
+      <h2>Login</h2>
     </div>
-    <div v-else>
-      <div class="title">
-        <h2>Login</h2>
-      </div>
-      <div class="container form">
-        <label for="username"><b>Username</b></label>
-        <input
-          v-model="user.username"
-          type="text"
-          class="input"
-          placeholder="Enter Username"
-          name="username"
-          required
-        />
-        <span v-if="usernameError" class="error">{{ usernameError }}</span>
+    <div class="container form" v-if="!isAuthenticated">
+      <label for="email"><b>Email</b></label>
+      <input
+        v-model="user.email"
+        type="text"
+        class="input"
+        placeholder="Enter Email"
+        name="email"
+        required
+      />
+      <span v-if="emailError" class="error">{{ emailError }}</span>
 
-        <label for="password"><b>Password</b></label>
-        <input
-          v-model="user.password"
-          type="password"
-          class="input"
-          placeholder="Enter Password"
-          name="password"
-          required
-        />
-        <span v-if="loginError" class="error">{{ loginError }}</span>
+      <label for="password"><b>Password</b></label>
+      <input
+        v-model="user.password"
+        type="password"
+        class="input"
+        placeholder="Enter Password"
+        name="password"
+        required
+      />
+      <span v-if="loginError" class="error">{{ loginError }}</span>
 
-        <button @click.prevent="login" class="button" :disabled="loading">
-          {{ loading ? 'Logging in...' : 'Login' }}
-        </button>
-      </div>
+      <button @click.prevent="login" class="button">Login</button>
     </div>
   </div>
 </template>
@@ -41,80 +34,53 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue';
 import { useAuth } from '../.nuxt/imports';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 
-// Initialize authentication and methods
+// Инициализация состояния авторизации и функций
 const { status, signIn } = useAuth();
 const isAuthenticated = computed(() => status.value === 'authenticated');
-const router = useRouter();
-const route = useRoute();
 
-// States for user data and errors
+// Состояния для пользователя и ошибок
 const user = ref({
-  username: '',
+  email: '',
   password: '',
 });
-const usernameError = ref('');
+const emailError = ref('');
 const loginError = ref('');
-const loading = ref(false);
 
-// Function to handle login
+// Инстанс роутера для редиректа
+const router = useRouter();
+
+// Функция для обработки логина
 const login = async () => {
-  usernameError.value = '';
+  emailError.value = '';
   loginError.value = '';
-  loading.value = true;
 
-  // Validate username format
-  if (!isValidUsername(user.value.username)) {
-    usernameError.value = 'Invalid username format. Please enter a valid username.';
-    loading.value = false;
+  // Проверка корректности email
+  if (!isValidEmail(user.value.email)) {
+    emailError.value = 'Invalid email format. Please enter a valid email address.';
     return;
   }
 
   try {
     await signIn(user.value);
-    // Redirect to home page if authenticated
+    // Редирект на домашнюю страницу, если пользователь авторизован
     if (isAuthenticated.value) {
       router.push('/');
     }
   } catch (error) {
-    loginError.value = 'Invalid credentials. Please check your username and password.';
+    loginError.value = 'Invalid credentials. Please check your email and password.';
     console.error('Login error:', error);
-  } finally {
-    loading.value = false;
   }
 };
 
-// Function to validate username format
-const isValidUsername = (username: string) => {
-  // Check minimum length
-  return username.length >= 3;
+// Функция для проверки формата email
+const isValidEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
 };
 
-// Function to decode JWT token
-const jwtDecode = (token: string) => {
-  const payload = token.split('.')[1];
-  return JSON.parse(atob(payload));
-};
 
-// Automatically handle token from URL
-onMounted(() => {
-  const token = route.query.token as string | undefined;
-
-  if (token) {
-    try {
-      const decoded = jwtDecode(token);
-      // Auto-login using decoded token data
-      user.value.username = decoded.username;
-      user.value.password = ''; 
-      // Perform login
-      login();
-    } catch (error) {
-      loginError.value = 'Invalid or expired token.';
-      console.error('Token error:', error);
-    }
-  }
-});
 </script>
 
 <style lang="scss">
@@ -143,10 +109,6 @@ onMounted(() => {
     margin: 8px 0;
     border: black;
     cursor: pointer;
-    &:disabled {
-      background-color: #c0c0c0;
-      cursor: not-allowed;
-    }
   }
 
   .button:hover {

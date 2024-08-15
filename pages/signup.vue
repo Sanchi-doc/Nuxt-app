@@ -1,77 +1,25 @@
 <template>
-  <div>
-    <form v-if="!isAuthenticated" @submit.prevent="signup" class="signup-form">
-      <input v-model="user.username" type="text" placeholder="Username" required class="form-input">
-      <input v-model="user.id" type="text" placeholder="ID" required class="form-input">
-      <input v-model="user.password" type="password" placeholder="Password" required class="form-input">
-      <button type="submit" class="form-button">Sign Up</button>
-    </form>
-    <div v-else>
-      <h2>Welcome, {{ user.username }}</h2>
-    </div>
-  </div>
+  <form @submit.prevent="signup" class="signup-form">
+    <input v-model="user.username" type="text" placeholder="Username" required class="form-input">
+    <input v-model="user.email" type="email" placeholder="Email" required class="form-input">
+    <input v-model="user.password" type="password" placeholder="Password" required class="form-input">
+    <button type="submit" class="form-button">Sign Up</button>
+  </form>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
-import { useAuth } from '../.nuxt/imports';
-import { useRoute, useRouter } from 'vue-router';
 
-// States for user data and authentication
 const user = ref({
   username: '',
-  id: '',
+  email: '',
   password: ''
 });
-const { signUp, status, signIn } = useAuth();
-const router = useRouter();
-const route = useRoute();
-const isAuthenticated = computed(() => status.value === 'authenticated');
 
-// Function to handle signup
+const { signUp } = useAuth()
+
 const signup = async () => {
-  try {
-    await signUp(user.value);
-    // Automatically log in after successful registration
-    await signIn(user.value);
-    if (isAuthenticated.value) {
-      router.push('/');
-    }
-  } catch (error) {
-    console.error('Signup error:', error);
-  }
-};
-
-// Function to decode JWT token
-const jwtDecode = (token: string) => {
-  try {
-    const payload = token.split('.')[1];
-    return JSON.parse(atob(payload));
-  } catch (e) {
-    console.error('Error decoding token:', e);
-    return {};
-  }
-};
-
-
-// Automatically handle token from URL
-onMounted(() => {
-  const token = route.query.token as string | undefined;
-
-  if (token) {
-    try {
-      const decoded = jwtDecode(token);
-      user.value.username = decoded.username;
-      user.value.id = decoded.id;
-      user.value.password = ''; 
-
-      // Automatically register and log in the user
-      signup();
-    } catch (error) {
-      console.error('Token error:', error);
-    }
-  }
-});
+  await signUp(user.value)
+}
 </script>
 
 <style lang="scss">
