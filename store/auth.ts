@@ -4,8 +4,9 @@ import axios from 'axios';
 interface UserPayloadInterface {
   username: string;
   password: string;
-  email: string;
+  id: number;
 }
+
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -15,10 +16,10 @@ export const useAuthStore = defineStore('auth', {
     user: {} as Partial<UserPayloadInterface>
   }),
   actions: {
-    async authenticateUser({ email, password }: { email: string; password: string }) {
+    async authenticateUser({ username, password }: { username: string; password: string }) {
       try {
         this.loading = true;
-        const response = await axios.post('/api/login', { email, password });
+        const response = await axios.post('/api/login', { username, password });
         const { token, user } = response.data;
 
         if (token) {
@@ -46,8 +47,7 @@ export const useAuthStore = defineStore('auth', {
           this.token = token;
           this.user = {
             username: userPayload.username,
-            email: userPayload.email,
-            
+            id: userPayload.id,
           };
           this.authenticated = true;
           localStorage.setItem('currentUser', JSON.stringify(this.user));
@@ -70,11 +70,11 @@ export const useAuthStore = defineStore('auth', {
       const token = localStorage.getItem('token');
       const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
 
-      if (token && currentUser.email) {
+      if (token && currentUser.username) { 
         this.token = token;
         this.user = currentUser;
         this.authenticated = true;
       }
-    }
-  }
+    },
+  },
 });

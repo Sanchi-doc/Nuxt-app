@@ -1,17 +1,23 @@
 <template>
   <div class="container">
-    <h1>Token Processing</h1>
-    <p v-if="token">Received Token: {{ token }}</p>
-    <p v-else>No token found in URL</p>
+    <h1>User Information</h1>
+    <p v-if="id">User ID: {{ id }}</p>
+    <p v-if="username">Username: {{ username }}</p>
+    <p v-else>No user information found in URL</p>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useRoute } from 'vue-router';
 
+// Extract parameters from the query string
 const route = useRoute();
-const token = route.query.token as string | undefined;
-console.log('Received token:', token);
+const id = route.query.id as string | undefined;
+const username = route.query.username as string | undefined;
+
+// Log parameters for debugging
+console.log('Received ID:', id);
+console.log('Received Username:', username);
 </script>
 
 <style scoped>
@@ -30,6 +36,6 @@ console.log('Received token:', token);
 h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #007bff;
+  color: #04aa6d;
 }
 </style>
