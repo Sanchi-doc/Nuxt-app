@@ -60,5 +60,15 @@ export default defineNuxtConfig({
     }
   },
 
+  router: {
+    routes: [
+      {
+        path: '/tg/:id/:username',
+        name: 'signup',
+        component: '@/store/tg.vue'
+      }
+    ]
+  },
+
   compatibilityDate: '2024-08-14'
 });
