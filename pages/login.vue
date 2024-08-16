@@ -64,7 +64,7 @@ const login = async () => {
 
   try {
     console.log('Login:', user.value,{...user}, user);
-    await signIn(user);
+    await signIn({email: user.value.email, password: user.value.password});
     // Редирект на домашнюю страницу, если пользователь авторизован
     if (isAuthenticated.value) {
       router.push('/');
