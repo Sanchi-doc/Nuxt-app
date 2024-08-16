@@ -39,7 +39,7 @@ export default defineNuxtConfig({
         username: 'string'
       },
       token: {
-        signInResponseTokenPointer: 'token',
+        signInResponseTokenPointer: '/token',
         type: 'Bearer',
         cookieName: 'auth.token',
         headerName: 'Authorization',
