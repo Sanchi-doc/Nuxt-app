@@ -25,7 +25,7 @@ export default defineNuxtConfig({
         ],
       }],
     '@sidebase/nuxt-auth',
-    '@nuxtjs/axios',
+    '@nuxtjs/axios'
   ],
 
   auth: {
