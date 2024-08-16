@@ -44,7 +44,7 @@ export default defineNuxtConfig({
         cookieName: 'auth.token',
         headerName: 'Authorization',
         maxAgeInSeconds: 3600,
-        sameSiteAttribute: 'lax',
+        sameSiteAttribute: '',
         cookieDomain: ''
       },
       endpoints: {
