@@ -7,7 +7,7 @@
       <label for="email"><b>Email</b></label>
       <input
         v-model="user.email"
-        type="text"
+        type="email"
         class="input"
         placeholder="Enter Email"
         name="email"
@@ -63,6 +63,7 @@ const login = async () => {
   }
 
   try {
+    console.log('Login:', user.value);
     await signIn(user.value);
     // Редирект на домашнюю страницу, если пользователь авторизован
     if (isAuthenticated.value) {

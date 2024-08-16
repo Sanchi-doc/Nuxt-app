@@ -18,6 +18,7 @@ const user = ref({
 const { signUp } = useAuth()
 
 const signup = async () => {
+  console.log('Sign up:', user.value);
   await signUp(user.value)
 }
 </script>
