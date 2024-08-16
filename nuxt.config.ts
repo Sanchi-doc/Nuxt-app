@@ -39,7 +39,7 @@ export default defineNuxtConfig({
         username: 'string'
       },
       token: {
-        signInResponseTokenPointer: '/token',
+        signInResponseTokenPointer: 'token',
         type: 'Bearer',
         cookieName: 'auth.token',
         headerName: 'Authorization',
@@ -52,7 +52,10 @@ export default defineNuxtConfig({
         signUp: {path: 'register', method: 'post'},
         signOut: {path: 'logout', method: 'post'},
         getSession: {path: 'session', method: 'get'},
-      }
+      },
+      pages: {
+        login: '/login'
+      },
     },
     sessionRefresh: {
       enablePeriodically: false,
