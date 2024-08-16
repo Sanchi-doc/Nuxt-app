@@ -25,6 +25,7 @@ export default defineNuxtConfig({
         ],
       }],
     '@sidebase/nuxt-auth',
+    '@nuxtjs/axios',
   ],
 
   auth: {
@@ -44,7 +45,7 @@ export default defineNuxtConfig({
         cookieName: 'auth.token',
         headerName: 'Authorization',
         maxAgeInSeconds: 3600,
-        sameSiteAttribute: '',
+        sameSiteAttribute: 'lax',
         cookieDomain: ''
       },
       endpoints: {
