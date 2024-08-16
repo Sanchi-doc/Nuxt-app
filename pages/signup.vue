@@ -19,8 +19,12 @@ const { signUp } = useAuth()
 
 const signup = async () => {
   console.log('Sign up:', user.value);
-  const res = await signUp({email: user.value.email, password: user.value.password, username: user.value.username})
-  console.log('after sign up:', res)
+  try {
+    const res = await signUp({email: user.value.email, password: user.value.password, username: user.value.username})
+    console.log('after sign up:', res)
+  } catch (error) {
+    console.error('Sign up error:', error)
+  }
 }
 </script>
 
