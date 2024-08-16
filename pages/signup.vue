@@ -19,7 +19,7 @@ const { signUp } = useAuth()
 
 const signup = async () => {
   console.log('Sign up:', user.value);
-  await signUp(user.value)
+  await signUp({email: user.value.email, password: user.value.password, username: user.value.username})
 }
 </script>
 
