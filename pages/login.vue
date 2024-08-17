@@ -7,7 +7,7 @@
       <label for="email"><b>Email</b></label>
       <input
         v-model="user.email"
-        type="text"
+        type="email"
         class="input"
         placeholder="Enter Email"
         name="email"
@@ -63,7 +63,8 @@ const login = async () => {
   }
 
   try {
-    await signIn(user.value);
+    console.log('Login:', user.value,{...user}, user);
+    await signIn({email: user.value.email, password: user.value.password});
     // Редирект на домашнюю страницу, если пользователь авторизован
     if (isAuthenticated.value) {
       router.push('/');

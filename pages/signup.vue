@@ -18,7 +18,13 @@ const user = ref({
 const { signUp } = useAuth()
 
 const signup = async () => {
-  await signUp(user.value)
+  console.log('Sign up:', user.value);
+  try {
+    const res = await signUp({email: user.value.email, password: user.value.password, username: user.value.username})
+    console.log('after sign up:', res)
+  } catch (error) {
+    console.error('Sign up error:', error)
+  }
 }
 </script>
 

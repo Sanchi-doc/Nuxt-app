@@ -52,7 +52,10 @@ export default defineNuxtConfig({
         signUp: {path: 'register', method: 'post'},
         signOut: {path: 'logout', method: 'post'},
         getSession: {path: 'session', method: 'get'},
-      }
+      },
+      pages: {
+        login: '/login'
+      },
     },
     sessionRefresh: {
       enablePeriodically: false,
@@ -60,15 +63,5 @@ export default defineNuxtConfig({
     }
   },
 
-  router: {
-    routes: [
-      {
-        path: '/tg/:id/:username',
-        name: 'signup',
-        component: '@/store/tg.vue'
-      }
-    ]
-  },
-
-  compatibilityDate: '2024-08-14'
+  compatibilityDate: '2024-08-16'
 });
