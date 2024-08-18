@@ -13,22 +13,19 @@ const route = useRoute()
 
 const{id, username} = route.query
 const params = {id, username}
-console.log(params)
 
 const signup = async () => {
-  console.log('Sign up:', user.value);
+  console.log('Sign up:', params);
   try {
-    const res = await signUp({email: user.value.email, password: user.value.password, username: user.value.username})
+    const res = await signUp({params})
     console.log('after sign up:', res)
   } catch (error) {
     console.error('Sign up error:', error)
   }
 }  
 
-mounted() {
-    this.$nextTick(function () {
-      console.log('mounted')
-      this.signup() 
-    });
-  }  
+onMounted(() => {
+  console.log('Component mounted, initiating signup');
+  signup();
+});
 </script>
