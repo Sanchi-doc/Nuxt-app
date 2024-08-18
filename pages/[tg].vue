@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Registering user</h1>
-    <p>ID : {{ id }}</p>
+    <p>TG ID : {{ tgId }}</p>
     <p>Username: {{ username }}</p>
   </div>
 </template>
@@ -11,13 +11,13 @@
 const { signUp } = useAuth();
 const route = useRoute()
 
-const{id, username} = route.query
-const params = {id, username}
+const { tgId, username, password, email } = route.query
+const params = { tgId, username, password, email }
 
 const signup = async () => {
   console.log('Sign up:', params);
   try {
-    const res = await signUp({email: user.value.email, password: user.value.password, username: user.value.username})
+    const res = await signUp({ params })
     console.log('after sign up:', res)
   } catch (error) {
     console.error('Sign up error:', error)
