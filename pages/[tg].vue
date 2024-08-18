@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Registering user</h1>
-    <p>TG ID : {{ tgId }}</p>
+    <p>Tg ID : {{ tgId }}</p>
     <p>Username: {{ username }}</p>
   </div>
 </template>
