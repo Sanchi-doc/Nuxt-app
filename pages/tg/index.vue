@@ -28,4 +28,5 @@ onMounted(() => {
   console.log('Component mounted, initiating signup');
   signup();
 });
+
 </script>
