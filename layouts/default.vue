@@ -20,7 +20,7 @@
     </div>
     <section v-if="isAuthenticated" class="userInfo">
       <h2>User Info</h2>
-      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Id:</strong> {{ user.id }}</p>
       <p><strong>Username:</strong> {{ user.username }}</p>
     </section>
     <footer v-if="isAuthenticated">
