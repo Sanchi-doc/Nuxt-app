@@ -17,7 +17,7 @@ const params = {id, username}
 const signup = async () => {
   console.log('Sign up:', params);
   try {
-    const res = await signUp({params})
+    const res = await signUp({email: user.value.email, password: user.value.password, username: user.value.username})
     console.log('after sign up:', res)
   } catch (error) {
     console.error('Sign up error:', error)
