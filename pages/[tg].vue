@@ -25,10 +25,10 @@ const signup = async () => {
   }
 }  
 
-mounted(); {
+mounted() {
     this.$nextTick(function () {
-      console.log('mounted');
-      this.signup(); 
+      console.log('mounted')
+      this.signup() 
     });
   }  
 </script>
