@@ -25,12 +25,11 @@ export default defineNuxtConfig({
         ],
       }],
     '@sidebase/nuxt-auth',
-    '@nuxtjs/axios',
   ],
 
   auth: {
     isEnabled: true,
-    disableServerSideAuth: false,
+    disableServerSideAuth: true,
     baseURL: 'auth/',
     provider: {
       type: 'local',
