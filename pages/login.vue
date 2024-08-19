@@ -63,12 +63,12 @@ const login = async () => {
   }
 
   try {
-    console.log('Login:', user.value,{...user}, user);
-    await signIn({email: user.value.email, password: user.value.password});
+    console.log('Login:', user.value);
+    await signIn({email: user.value.email, password: user.value.password}, {redirect: true, callbackUrl: '/'});
     // Редирект на домашнюю страницу, если пользователь авторизован
-    if (isAuthenticated.value) {
-      router.push('/');
-    }
+    // if (isAuthenticated.value) {
+    //   router.push('/');
+    // }
   } catch (error) {
     loginError.value = 'Invalid credentials. Please check your email and password.';
     console.error('Login error:', error);

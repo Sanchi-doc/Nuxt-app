@@ -53,9 +53,6 @@ export default defineNuxtConfig({
         signOut: {path: 'logout', method: 'post'},
         getSession: {path: 'session', method: 'get'},
       },
-      pages: {
-        login: '/login'
-      },
     },
     sessionRefresh: {
       enablePeriodically: false,

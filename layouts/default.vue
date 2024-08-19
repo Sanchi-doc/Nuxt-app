@@ -11,7 +11,7 @@
           <nuxt-link to="/login">Login</nuxt-link>
         </li>
         <li v-else class="loginBtn" style="float: right">
-          <a @click="signOut">Logout</a>
+          <a @click="signOut({ callbackUrl: '/', external: true})">Logout</a>
         </li>
       </ul>
     </header>
