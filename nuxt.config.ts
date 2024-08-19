@@ -25,6 +25,7 @@ export default defineNuxtConfig({
         ],
       }],
     '@sidebase/nuxt-auth',
+    '@nuxtjs/axios',
   ],
 
   auth: {
@@ -37,6 +38,11 @@ export default defineNuxtConfig({
         id: 'string | number',
         email: 'string',
         username: 'string'
+      },
+      redirect: {
+        login: '/login',
+        logout: '/login',
+        callback: '/auth/',
       },
       token: {
         signInResponseTokenPointer: '/token',
