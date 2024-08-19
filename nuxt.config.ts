@@ -50,7 +50,9 @@ export default defineNuxtConfig({
         headerName: 'Authorization',
         maxAgeInSeconds: 3600,
         sameSiteAttribute: 'lax',
-        cookieDomain: ''
+        cookieDomain: process.env.API_URL,
+        secureCookieAttribute: false,
+        httpOnlyCookieAttribute: false,
       },
       endpoints: {
         signIn: {path: 'login', method: 'post'},
