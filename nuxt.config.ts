@@ -31,7 +31,7 @@ export default defineNuxtConfig({
     auth: {
         isEnabled: true,
         disableServerSideAuth: false,
-        baseURL: 'http://localhost:3000/auth',
+        baseURL: `${process.env.API_URL}/auth`,
         provider: {
             type: 'local',
             sessionDataType: {
