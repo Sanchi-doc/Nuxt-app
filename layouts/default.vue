@@ -19,7 +19,7 @@
       <h2>User Info</h2>
       <p><strong>Id:</strong> {{ user.id }}</p>
       <p><strong>Username:</strong> {{ user.username }}</p>
-      <p><strong>Email:</strong>{{ user.email || 'email not added'}}</p>
+      <p><strong>Email:</strong>{{ user.email || ' Email not added'}}</p>
     </section>
     <footer v-if="isAuthenticated">
       <h1>Welcome</h1>
@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 import { useAuth } from '#imports'
 
-const { status, data, signOut } = useAuth()
+const { status, data } = useAuth()
 
 // Check if user is authenticated
 const isAuthenticated = computed(() => status.value === 'authenticated')
