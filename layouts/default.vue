@@ -10,9 +10,6 @@
         <li v-if="!isAuthenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/login">Login</nuxt-link>
         </li>
-        <li v-else class="loginBtn" style="float: right">
-          <a @click="signOut({ callbackUrl: '/', external: true})">Logout</a>
-        </li>
       </ul>
     </header>
     <div class="mainContent">
@@ -22,7 +19,7 @@
       <h2>User Info</h2>
       <p><strong>Id:</strong> {{ user.id }}</p>
       <p><strong>Username:</strong> {{ user.username }}</p>
-      <p><strong>Email:</strong>{{ user.email || undefined}}</p>
+      <p><strong>Email:</strong>{{ user.email || 'email not added'}}</p>
     </section>
     <footer v-if="isAuthenticated">
       <h1>Welcome</h1>
