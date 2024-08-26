@@ -19,7 +19,7 @@
       <h2>User Info</h2>
       <p><strong>Id:</strong> {{ user.id }}</p>
       <p><strong>Username:</strong> {{ user.username }}</p>
-      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Email:</strong> {{ user.email || ' Email not added'}}</p>
     </section>
     <footer v-if="isAuthenticated">
       <h1>Welcome</h1>
