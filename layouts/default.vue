@@ -37,7 +37,7 @@ import { useRequestHeaders } from '#app'
 const { status, data, signOut } = useAuth()
 const headers = useRequestHeaders(['user-agent'])
 const userAgent = headers['user-agent']
-
+console.log('User Agent:', userAgent)
 
 // Check if user is authenticated
 const isAuthenticated = computed(() => status.value === 'authenticated')
@@ -49,7 +49,7 @@ const user = computed(() => data.value?.user)
 const isTelegram = ref(false)
 
 onMounted(() => {
-  console.log('User Agent:', userAgent)
+
   isTelegram.value = navigator.userAgent.includes('TelegramBot');
   console.log('isTelegram', isTelegram.value)
 })
