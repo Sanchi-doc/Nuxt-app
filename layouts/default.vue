@@ -32,10 +32,13 @@
 
 <script lang="ts" setup>
 import { useAuth } from '#imports'
-
+import { useRequestHeaders } from 'nuxt/app'
 
 const { status, data, signOut } = useAuth()
+const headers = useRequestHeaders(['user-agent'])
+const userAgent = headers['user-agent']
 
+console.log('User Agent:', userAgent)
 // Check if user is authenticated
 const isAuthenticated = computed(() => status.value === 'authenticated')
 
