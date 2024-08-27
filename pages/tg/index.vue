@@ -1,11 +1,3 @@
-<template>
-  <div>
-    <h1>Registering user</h1>
-    <p>Tg ID : {{ tgId }}</p>
-    <p>Username: {{ username }}</p>
-  </div>
-</template>
-
 <script setup>
 
 const { signUp } = useAuth();
@@ -28,4 +20,5 @@ onMounted(() => {
   console.log('Component mounted, initiating signup');
   signup();
 });
+
 </script>
