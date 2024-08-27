@@ -10,6 +10,9 @@
         <li v-if="!isAuthenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/login">Login</nuxt-link>
         </li>
+        <li v-else-if="!isTelegram" class="loginBtn" style="float: right">
+          <a @click="signOut({ callbackUrl: '/', external: true})">Logout</a>
+        </li>
       </ul>
     </header>
     <div class="mainContent">
@@ -30,7 +33,8 @@
 <script lang="ts" setup>
 import { useAuth } from '#imports'
 
-const { status, data } = useAuth()
+
+const { status, data, signOut } = useAuth()
 
 // Check if user is authenticated
 const isAuthenticated = computed(() => status.value === 'authenticated')
@@ -38,6 +42,13 @@ const isAuthenticated = computed(() => status.value === 'authenticated')
 // Get the current user
 const user = computed(() => data.value?.user)
 
+
+const isTelegram = ref(false)
+
+onMounted(() => {
+ 
+  isTelegram.value = navigator.userAgent.includes('TelegramBot');
+})
 </script>
 
 <style lang="scss">
