@@ -35,9 +35,9 @@ import { useAuth } from '#imports'
 import { useRequestHeaders } from '#app'
 
 const { status, data, signOut } = useAuth()
-const headers = useRequestHeaders()
+const headers = useRequestHeaders(['user-agent'])
 const userAgent = headers['user-agent']
-console.log('User Agent:', headers)
+console.log('User Agent:', userAgent, 'navigator', navigator.userAgent)
 
 // Check if user is authenticated
 const isAuthenticated = computed(() => status.value === 'authenticated')
