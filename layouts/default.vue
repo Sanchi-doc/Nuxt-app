@@ -32,7 +32,7 @@
 
 <script lang="ts" setup>
 import { useAuth } from '#imports'
-import { useRequestHeaders } from 'nuxt/app'
+import { useRequestHeaders } from '#app'
 
 const { status, data, signOut } = useAuth()
 const headers = useRequestHeaders(['user-agent'])
