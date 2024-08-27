@@ -51,6 +51,7 @@ const isTelegram = ref(false)
 onMounted(() => {
  
   isTelegram.value = navigator.userAgent.includes('TelegramBot');
+  console.log('isTelegram', isTelegram.value)
 })
 </script>
 
