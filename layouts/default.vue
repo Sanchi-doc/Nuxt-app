@@ -10,7 +10,7 @@
         <li v-if="!isAuthenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/login">Login</nuxt-link>
         </li>
-        <li v-if="isAuthenticated && !!user.tgId" class="loginBtn" style="float: right">
+        <li v-if="isAuthenticated && !user.tgId" class="loginBtn" style="float: right">
           <a @click="signOut">Logout</a>
         </li>
       </ul>
