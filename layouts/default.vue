@@ -7,11 +7,11 @@
         <li v-if="!isAuthenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/signup">Signup</nuxt-link>
         </li>
-        <li v-if="!isAuthenticated" class="loginBtn" style="float: right">
+        <li v-if="!isAuthenticated && isTelegram" class="loginBtn" style="float: right">
           <nuxt-link to="/login">Login</nuxt-link>
         </li>
-        <li v-else-if="!isTelegram" class="loginBtn" style="float: right">
-          <a @click="signOut({ callbackUrl: '/', external: true})">Logout</a>
+        <li v-if="isAuthenticated && !isTelegram" class="loginBtn" style="float: right">
+          <a @click="signOut">Logout</a>
         </li>
       </ul>
     </header>
@@ -21,7 +21,6 @@
     <section v-if="isAuthenticated" class="userInfo">
       <h2>User Info</h2>
       <p><strong>Id:</strong> {{ user.id }}</p>
-      <p><strong>Email:</strong> {{ user.email || ' Email not added'}}</p>
       <p><strong>Username:</strong> {{ user.username }}</p>
     </section>
     <footer v-if="isAuthenticated">
@@ -32,12 +31,8 @@
 
 <script lang="ts" setup>
 import { useAuth } from '#imports'
-import { useRequestHeaders } from '#app'
 
 const { status, data, signOut } = useAuth()
-const headers = useRequestHeaders(['user-agent'])
-const userAgent = headers['user-agent']
-console.log('User Agent:', userAgent, 'navigator', navigator.userAgent)
 
 // Check if user is authenticated
 const isAuthenticated = computed(() => status.value === 'authenticated')
@@ -45,14 +40,6 @@ const isAuthenticated = computed(() => status.value === 'authenticated')
 // Get the current user
 const user = computed(() => data.value?.user)
 
-
-const isTelegram = ref(false)
-
-onMounted(() => {
-
-  isTelegram.value = navigator.userAgent.includes('TelegramBot');
-  console.log('isTelegram', isTelegram.value)
-})
 </script>
 
 <style lang="scss">
