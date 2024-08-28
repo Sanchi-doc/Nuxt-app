@@ -37,7 +37,8 @@ export default defineNuxtConfig({
           sessionDataType: {
               id: 'string | number',
               email: 'string',
-              username: 'string'
+              username: 'string',
+              tgId: 'string | number',
           },
           redirect: {
               login: '/login',

@@ -22,6 +22,7 @@
       <h2>User Info</h2>
       <p><strong>Id:</strong> {{ user.id }}</p>
       <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>TGID:</strong> {{ user.tgId }}</p>
     </section>
     <footer v-if="isAuthenticated">
       <h1>Welcome</h1>
