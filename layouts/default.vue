@@ -42,6 +42,7 @@ const user = computed(() => data.value?.user)
 
 const isTelegram = computed(() => user.value?.tgId)
 
+console.log('isTelegram:', isTelegram, user.value)
 </script>
 
 <style lang="scss">
