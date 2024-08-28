@@ -40,9 +40,9 @@ const isAuthenticated = computed(() => status.value === 'authenticated')
 // Get the current user
 const user = computed(() => data.value?.user)
 
-const isTelegram = computed(() => user.value?.tgId)
+const isTelegram = computed(() => user.tgId)
 
-console.log('isTelegram:', isTelegram, user.value)
+console.log('isTelegram:', isTelegram, user)
 </script>
 
 <style lang="scss">
