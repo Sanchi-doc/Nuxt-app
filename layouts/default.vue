@@ -23,6 +23,7 @@
       <p><strong>Id:</strong> {{ user.id }}</p>
       <p><strong>Username:</strong> {{ user.username }}</p>
       <p><strong>TGID:</strong> {{ user.tgId }}</p>
+      <p><strong>DATA:</strong> {{ data.value }}</p>
     </section>
     <footer v-if="isAuthenticated">
       <h1>Welcome</h1>
@@ -34,6 +35,7 @@
 import { useAuth } from '#imports'
 
 const { status, data, signOut } = useAuth()
+
 
 // Check if user is authenticated
 const isAuthenticated = computed(() => status.value === 'authenticated')
