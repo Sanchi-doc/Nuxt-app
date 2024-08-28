@@ -10,7 +10,7 @@
         <li v-if="!isAuthenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/login">Login</nuxt-link>
         </li>
-        <li v-if="isAuthenticated && !isTelegram" class="loginBtn" style="float: right">
+        <li v-if="isAuthenticated && !!user.tgId" class="loginBtn" style="float: right">
           <a @click="signOut">Logout</a>
         </li>
       </ul>
@@ -40,9 +40,6 @@ const isAuthenticated = computed(() => status.value === 'authenticated')
 // Get the current user
 const user = computed(() => data.value?.user)
 
-const isTelegram = computed(() => user.tgId)
-
-console.log('isTelegram:', isTelegram, user)
 </script>
 
 <style lang="scss">

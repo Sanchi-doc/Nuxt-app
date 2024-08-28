@@ -17,7 +17,6 @@ const signup = async () => {
 }  
 
 onMounted(() => {
-  console.log('Component mounted, initiating signup');
   signup();
 });
 
