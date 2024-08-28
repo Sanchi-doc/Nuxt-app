@@ -7,7 +7,7 @@
         <li v-if="!isAuthenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/signup">Signup</nuxt-link>
         </li>
-        <li v-if="!isAuthenticated && isTelegram" class="loginBtn" style="float: right">
+        <li v-if="!isAuthenticated" class="loginBtn" style="float: right">
           <nuxt-link to="/login">Login</nuxt-link>
         </li>
         <li v-if="isAuthenticated && !isTelegram" class="loginBtn" style="float: right">
